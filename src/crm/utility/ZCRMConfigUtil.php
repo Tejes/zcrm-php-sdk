@@ -22,7 +22,6 @@ class ZCRMConfigUtil
         $mandatory_keys = array(
             ZohoOAuthConstants::CLIENT_ID,
             ZohoOAuthConstants::CLIENT_SECRET,
-            ZohoOAuthConstants::REDIRECT_URL
         );
         // check if user input contains all mandatory values
         foreach ($mandatory_keys as $key) {
