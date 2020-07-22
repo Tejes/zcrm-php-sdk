@@ -1,6 +1,8 @@
 <?php
 namespace zcrmsdk\crm\utility;
 
+use zcrmsdk\crm\exception\ZCRMException;
+
 /**
  * Purpose of this class is to trigger API call and fetch the response
  *
@@ -64,6 +66,13 @@ class ZohoHTTPConnector
             curl_setopt($curl_pointer, CURLOPT_CUSTOMREQUEST, APIConstants::REQUEST_METHOD_DELETE);
         }
         $result = curl_exec($curl_pointer);
+        $errno = curl_errno($curl_pointer);
+        $error = curl_error($curl_pointer);
+        curl_close($curl_pointer);
+        if ($errno) {
+            throw new ZCRMException($error, $errno);
+        }
+
         $responseInfo = curl_getinfo($curl_pointer);
         curl_close($curl_pointer);
         
@@ -82,7 +91,15 @@ class ZohoHTTPConnector
         curl_setopt($curl_pointer, CURLOPT_USERAGENT, $this->userAgent);
         curl_setopt($curl_pointer, CURLOPT_HTTPHEADER, self::getRequestHeadersAsArray());
         // curl_setopt($curl_pointer,CURLOPT_SSLVERSION,3);
+
         $result = curl_exec($curl_pointer);
+        $errno = curl_errno($curl_pointer);
+        $error = curl_error($curl_pointer);
+        curl_close($curl_pointer);
+        if ($errno) {
+            throw new ZCRMException($error, $errno);
+        }
+
         $responseInfo = curl_getinfo($curl_pointer);
         curl_close($curl_pointer);
         return array(

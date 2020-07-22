@@ -1,6 +1,8 @@
 <?php
 namespace zcrmsdk\oauth\utility;
 
+use zcrmsdk\oauth\exception\ZohoOAuthException;
+
 class ZohoOAuthHTTPConnector
 {
     
@@ -24,7 +26,12 @@ class ZohoOAuthHTTPConnector
         curl_setopt($curl_pointer, CURLOPT_POST, $this->requestParamCount);
         curl_setopt($curl_pointer, CURLOPT_CUSTOMREQUEST, ZohoOAuthConstants::REQUEST_METHOD_POST);
         $result = curl_exec($curl_pointer);
+        $errno = curl_errno($curl_pointer);
+        $error = curl_error($curl_pointer);
         curl_close($curl_pointer);
+        if ($errno) {
+            throw new ZohoOAuthException($error, $errno);
+        }
         
         return $result;
     }
