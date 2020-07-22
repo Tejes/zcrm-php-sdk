@@ -176,8 +176,4 @@ class APIConstants
     const API_VERSION = "apiVersion";
 
     const BULK_WRITE_STATUS = "STATUS";
-    
-    const WRITE_STATUS = array("ADDED", "UPDATED");
-
-    const INVENTORY_MODULES = array("Invoices", "Sales_Orders","Purchase_Orders","Quotes");
 }

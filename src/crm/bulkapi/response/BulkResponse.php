@@ -126,7 +126,7 @@ class BulkResponse
                         if (in_array(APIConstants::BULK_WRITE_STATUS, $this->fieldAPINames))
                         {
                             $index = array_search(APIConstants::BULK_WRITE_STATUS, $this->fieldAPINames);
-                            if (!in_array($fieldValues[$index], APIConstants::WRITE_STATUS))
+                            if (!in_array($fieldValues[$index], array("ADDED", "UPDATED")))
                             {
                                 self::setFieldValues($fieldValues);
                                 return true;
