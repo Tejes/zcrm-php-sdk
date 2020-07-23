@@ -66,15 +66,13 @@ class ZohoHTTPConnector
             curl_setopt($curl_pointer, CURLOPT_CUSTOMREQUEST, APIConstants::REQUEST_METHOD_DELETE);
         }
         $result = curl_exec($curl_pointer);
+        $responseInfo = curl_getinfo($curl_pointer);
         $errno = curl_errno($curl_pointer);
         $error = curl_error($curl_pointer);
         curl_close($curl_pointer);
         if ($errno) {
             throw new ZCRMException($error, $errno);
         }
-
-        $responseInfo = curl_getinfo($curl_pointer);
-        curl_close($curl_pointer);
         
         return array(
             $result,
