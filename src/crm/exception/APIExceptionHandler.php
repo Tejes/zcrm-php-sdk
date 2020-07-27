@@ -9,8 +9,11 @@ class APIExceptionHandler
     
     public static function logException(ZCRMException $e)
     {
-        $msg = get_class($e) . " Caused by:'{$e->getMessage()}' in {$e->getFile()}({$e->getLine()})\nTrace::" . $e->getTraceAsString();
-        $message = $e->getMessage() . ";;Trace::" . $e->getTraceAsString();
+        $msg = get_class($e) . " Caused by:'{$e->getMessage()}' in {$e->getFile()}({$e->getLine()})\n";
+        if ($e->getExceptionDetails()) {
+            $msg .= "Details: " . print_r($e->getExceptionDetails(), true) . "\n";
+        }
+        $msg .= "Trace: " . $e->getTraceAsString();
         Logger::err($msg);
     }
     
